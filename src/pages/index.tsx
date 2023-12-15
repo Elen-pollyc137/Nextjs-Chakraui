@@ -3,15 +3,45 @@ import {
   Button,
   Flex,
   FormControl,
-  FormHelperText,
   FormLabel,
   Heading,
   Input,
   Text,
+  Textarea,
 } from '@chakra-ui/react'
 import Head from 'next/head'
+import { useState, FormEvent, FunctionComponent } from 'react'
 
-export default function Home() {
+interface IHomePops {
+  fistName: string
+  lastName: string
+  email: string
+  phone: string
+  descrition: string
+}
+
+const Home: FunctionComponent<IHomePops> = () => {
+  const [fistName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [address, setAddress] = useState('')
+  const [phone, setPhone] = useState('')
+  const [description, setDescription] = useState('')
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+
+    const data = {
+      fistName,
+      lastName,
+      email,
+      address,
+      phone,
+      description,
+    }
+    console.log(data)
+  }
+
   return (
     <>
       <Head>
@@ -41,33 +71,37 @@ export default function Home() {
               </Text>
             </Heading>
             <Box>
-              <form action="" autoComplete="off" className="white">
-                <FormControl isRequired marginTop="15px">
-                  <FormLabel color="gray.200">First Name</FormLabel>
-                  <Input
-                    type="text"
-                    name="fistName"
-                    border="none"
-                    outline="none"
-                    bgColor="gray.900"
-                    focusBorderColor="gray.600"
-                    color="gray.200"
-                    placeholder="First name"
-                  />
-                </FormControl>
-                <FormControl isRequired marginTop="15px">
-                  <FormLabel color="gray.200">Last Name</FormLabel>
-                  <Input
-                    type="text"
-                    name="lastName"
-                    border="none"
-                    outline="none"
-                    bgColor="gray.900"
-                    focusBorderColor="gray.600"
-                    color="gray.200"
-                    placeholder="Last name"
-                  />
-                </FormControl>
+              <Box autoComplete="off" onSubmit={handleSubmit} as="form">
+                <Flex justify="space-between">
+                  <FormControl isRequired marginTop="15px" width="49%">
+                    <FormLabel color="gray.200">First Name</FormLabel>
+                    <Input
+                      type="text"
+                      name="fistName"
+                      border="none"
+                      outline="none"
+                      bgColor="gray.900"
+                      focusBorderColor="gray.600"
+                      color="gray.200"
+                      placeholder="First name"
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl isRequired marginTop="15px" width="49%">
+                    <FormLabel color="gray.200">Last Name</FormLabel>
+                    <Input
+                      type="text"
+                      name="lastName"
+                      border="none"
+                      outline="none"
+                      bgColor="gray.900"
+                      focusBorderColor="gray.600"
+                      color="gray.200"
+                      placeholder="Last name"
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </FormControl>
+                </Flex>
                 <FormControl isRequired marginTop="15px">
                   <FormLabel color="gray.200">Your e-mail</FormLabel>
                   <Input
@@ -79,37 +113,42 @@ export default function Home() {
                     focusBorderColor="gray.600"
                     color="gray.200"
                     placeholder="Your e-mail"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </FormControl>
-                <FormControl isRequired marginTop="15px">
-                  <FormLabel color="gray.200">Your Address</FormLabel>
-                  <Input
-                    type="text"
-                    name="address"
-                    border="none"
-                    outline="none"
-                    bgColor="gray.900"
-                    focusBorderColor="gray.600"
-                    color="gray.200"
-                    placeholder="Your address"
-                  />
-                </FormControl>
-                <FormControl isRequired marginTop="15px">
-                  <FormLabel color="gray.200">Your Phone</FormLabel>
-                  <Input
-                    type="text"
-                    name="phone"
-                    border="none"
-                    outline="none"
-                    bgColor="gray.900"
-                    focusBorderColor="gray.600"
-                    color="gray.200"
-                    placeholder="Your phone"
-                  />
-                </FormControl>
-                <FormControl isRequired marginTop="15px">
-                  <FormLabel color="gray.200">Your decript message</FormLabel>
-                  <Input
+                <Flex justify="space-between">
+                  <FormControl isRequired marginTop="15px" width="60%">
+                    <FormLabel color="gray.200">Your Address</FormLabel>
+                    <Input
+                      type="text"
+                      name="address"
+                      border="none"
+                      outline="none"
+                      bgColor="gray.900"
+                      focusBorderColor="gray.600"
+                      color="gray.200"
+                      placeholder="Your address"
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl isRequired marginTop="15px" width="39%">
+                    <FormLabel color="gray.200">Your Phone</FormLabel>
+                    <Input
+                      type="text"
+                      name="phone"
+                      border="none"
+                      outline="none"
+                      bgColor="gray.900"
+                      focusBorderColor="gray.600"
+                      color="gray.200"
+                      placeholder="Your phone"
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </FormControl>
+                </Flex>
+                <FormControl marginTop="15px">
+                  <FormLabel color="gray.200">Your description</FormLabel>
+                  <Textarea
                     name="description"
                     border="none"
                     outline="none"
@@ -118,6 +157,7 @@ export default function Home() {
                     color="gray.200"
                     resize="none"
                     placeholder="Your description"
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </FormControl>
                 <Button
@@ -132,7 +172,7 @@ export default function Home() {
                 >
                   Register
                 </Button>
-              </form>
+              </Box>
             </Box>
           </Box>
         </Flex>
@@ -140,3 +180,4 @@ export default function Home() {
     </>
   )
 }
+export default Home
